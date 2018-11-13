@@ -29,4 +29,9 @@ class DefaultController
 
         return $response;
     }
+
+    public function hello(string $name)
+    {
+        return new Response('<h1>Salut ' . $name . '!</h1>');
+    }
 }
