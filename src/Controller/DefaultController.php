@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController
+class DefaultController extends Controller
 {
 
 
@@ -32,6 +33,6 @@ class DefaultController
 
     public function hello(string $name)
     {
-        return new Response('<h1>Salut ' . $name . '!</h1>');
+        return $this->render('Default/hello.html.twig', ['name' => $name]);
     }
 }
