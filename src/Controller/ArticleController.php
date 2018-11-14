@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/article", name="article")
+     * @Route("/article")
      */
     public function index(ArticleRepository $repo)
     {
@@ -21,18 +22,14 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @param \App\Repository\ArticleRepository $repo
+     * @param \App\Entity\Article $article
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/article/{id}", requirements={"id"="\d+"})
      */
-    public function detail(ArticleRepository $repo, int $id)
+    public function detail(Article $article)
     {
-        $article = $repo->find($id);
-
-        if (!$article) {
-            throw $this->createNotFoundException();
-        }
-
         return $this->render('article/detail.html.twig', [
             'article' => $article,
         ]);
