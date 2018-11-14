@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste d'articles{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des articles</h1>
+
+    <ul>
+        {% for article in articles %}
+        <li>{{ article.title }} - {{ article.publishedAt | date('d/m/Y - H:i:s') }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

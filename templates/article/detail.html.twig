@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ article.title }}</h1>
+    <div>{{ article.content }}</div>
+{% endblock %}
+
+{% block title %}
+{{ article.title | title }}
+{% endblock %}
+
