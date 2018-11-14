@@ -8,7 +8,7 @@
 
     <ul>
         {% for article in articles %}
-        <li>{{ article.title }} - {{ article.publishedAt | date('d/m/Y - H:i:s') }}</li>
+        <li><a href="{{ path('app_article_detail', {id: article.id}) }}">{{ article.title }}</a> - {{ article.publishedAt | date('d/m/Y - H:i:s') }}</li>
         {% endfor %}
     </ul>
 {% endblock %}
