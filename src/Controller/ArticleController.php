@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ArticleController extends AbstractController
 {
@@ -44,7 +45,10 @@ class ArticleController extends AbstractController
     public function create(Request $request, ObjectManager $manager)
     {
         $article = new Article();
-        $form = $this->createFormBuilder($article, ['method' => 'POST'])
+        $form = $this->createFormBuilder($article, [
+            'method' => 'POST',
+            'validation_groups' => "publication"
+        ])
             ->add('title')
             ->add('content')
             ->getForm();

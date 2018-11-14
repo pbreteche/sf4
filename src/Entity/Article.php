@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -18,16 +19,19 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull(message="Les titres, c'est trop nul")
      */
     private $title;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\IsNull(groups={"publication"})
      */
     private $publishedAt;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=50)
      */
     private $content;
 
@@ -70,5 +74,18 @@ class Article
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     * @Assert\IsTrue(
+     *     message="Le contenu doit être 2x plus long que le titre",
+     *     groups={"publication"}
+     * )
+     */
+    public function isContentTwiceAsLongAsTitle()
+    {
+        $contentLength = mb_strlen($this->content);
+        $titleLength = mb_strlen($this->title);
+        return  $titleLength && $contentLength / $titleLength >= 2;
     }
 }
