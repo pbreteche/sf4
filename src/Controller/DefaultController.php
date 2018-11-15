@@ -21,7 +21,7 @@ class DefaultController extends Controller
 
         $response = new Response();
 
-        $response->setContent('<h1>Hello ' . $name . '!</h1>');
+        $response->setContent('<h1>Hello ' . $name . '!</h1></body>');
 
         $response->setStatusCode(Response::HTTP_PARTIAL_CONTENT);
 

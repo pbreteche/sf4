@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form action="{{ path('app_security_check') }}" method="post">
+        {% if error %}
+        <div class="error">{{ error.message }}</div>
+        {% endif %}
+        <div>
+            <label for="username">Identifiant</label>
+            <input name="username" id="username" value="{{ username }}">
+        </div>
+        <div>
+            <label for="password">Mot de passe</label>
+            <input name="password" id="password" type="password">
+        </div>
+        <button>Connexion</button>
+    </form>
+{% endblock %}
