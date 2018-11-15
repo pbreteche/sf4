@@ -4,20 +4,23 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use App\Services\CalculatorInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ArticleController extends AbstractController
 {
     /**
      * @Route("/article")
      */
-    public function index(ArticleRepository $repo)
+    public function index(ArticleRepository $repo, CalculatorInterface $calculator)
     {
+        dump($calculator->add(3, 2));
+
         $articles = $repo->findAll();
 
         return $this->render('article/index.html.twig', [
@@ -31,6 +34,7 @@ class ArticleController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/article/{id}", requirements={"id"="\d+"})
+     * @Entity("article", expr="repository.findOneWithAuthor(id)")
      */
     public function detail(Article $article)
     {

@@ -2,6 +2,7 @@
 
 {% block body %}
     <h1>{{ article.title }}</h1>
+    <p>Écrit par {{ article.writtenBy.name }}</p>
     <div>{{ article.content }}</div>
 {% endblock %}
 

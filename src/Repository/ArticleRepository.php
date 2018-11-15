@@ -19,6 +19,28 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+
+    /**
+     * @param int $id
+     *
+     * @return Article
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneWithAuthor(int $id)
+    {
+        $manager = $this->getEntityManager();
+
+        $query = $manager->createQuery(
+            'SELECT a, wb FROM App\Entity\Article a
+            JOIN a.writtenBy wb
+            WHERE a.id = :id
+            ORDER BY a.publishedAt DESC'
+        )->setParameter('id', $id);
+
+        return $query->getOneOrNullResult();
+    }
+
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
